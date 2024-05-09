@@ -14,7 +14,8 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toTopOf="@id/buttonContainer"
         android:layout_marginTop="50dp"
-        app:srcCompat="@drawable/img_main_page" />
+        app:srcCompat="@drawable/img_main_page"
+        android:layout_marginHorizontal="10dp"/>
 
     <FrameLayout
         android:id="@+id/buttonContainer"
