@@ -94,12 +94,21 @@ class ExerciseActivity : AppCompatActivity() {
             }
 
             override fun onFinish() {
-                binding?.ivImage?.visibility = View.INVISIBLE
-                binding?.tvExercise?.visibility = View.INVISIBLE
-                binding?.flExerciseProgressBar?.visibility = View.INVISIBLE
-                binding?.tvTitle?.visibility = View.VISIBLE
-                binding?.flProgressBar?.visibility = View.VISIBLE
-                setupRestView()
+                if(currentExercisePosition < exerciseList?.size!! - 1) {
+                    binding?.ivImage?.visibility = View.INVISIBLE
+                    binding?.tvExercise?.visibility = View.INVISIBLE
+                    binding?.flExerciseProgressBar?.visibility = View.INVISIBLE
+                    binding?.tvTitle?.visibility = View.VISIBLE
+                    binding?.flProgressBar?.visibility = View.VISIBLE
+                    setupRestView()
+                }else {
+                    Toast.makeText(
+                        this@ExerciseActivity,
+                        "Congratulations, You have completed teh 7 minute workout.",
+                        Toast.LENGTH_LONG
+                    ).show()
+                }
+                
             }
         }.start()
     }
