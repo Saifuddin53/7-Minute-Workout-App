@@ -47,6 +47,15 @@ class ExerciseActivity : AppCompatActivity() {
             restProgress = 0
         }
 
+
+        binding?.ivImage?.visibility = View.INVISIBLE
+        binding?.tvExercise?.visibility = View.INVISIBLE
+        binding?.flExerciseProgressBar?.visibility = View.INVISIBLE
+        binding?.tvTitle?.visibility = View.VISIBLE
+        binding?.flProgressBar?.visibility = View.VISIBLE
+        binding?.upcomingExercise?.visibility = View.VISIBLE
+        binding?.nextExerciseTitle?.visibility = View.VISIBLE
+        binding?.nextExerciseTitle?.text = exerciseList?.get(currentExercisePosition + 1)?.getName()
         setRestProgressBar()
     }
 
@@ -61,6 +70,8 @@ class ExerciseActivity : AppCompatActivity() {
 
             override fun onFinish() {
                 currentExercisePosition++
+                binding?.upcomingExercise?.visibility = View.INVISIBLE
+                binding?.nextExerciseTitle?.visibility = View.INVISIBLE
                 binding?.flProgressBar?.visibility = View.INVISIBLE
                 binding?.tvTitle?.visibility = View.INVISIBLE
                 setupExerciseView()
@@ -95,11 +106,6 @@ class ExerciseActivity : AppCompatActivity() {
 
             override fun onFinish() {
                 if(currentExercisePosition < exerciseList?.size!! - 1) {
-                    binding?.ivImage?.visibility = View.INVISIBLE
-                    binding?.tvExercise?.visibility = View.INVISIBLE
-                    binding?.flExerciseProgressBar?.visibility = View.INVISIBLE
-                    binding?.tvTitle?.visibility = View.VISIBLE
-                    binding?.flProgressBar?.visibility = View.VISIBLE
                     setupRestView()
                 }else {
                     Toast.makeText(
@@ -108,13 +114,13 @@ class ExerciseActivity : AppCompatActivity() {
                         Toast.LENGTH_LONG
                     ).show()
                 }
-                
+
             }
         }.start()
     }
 
     override fun onDestroy() {
-        super.onDestroy()
+         super.onDestroy()
         if(restTimer != null)
         {
             restTimer?.cancel()

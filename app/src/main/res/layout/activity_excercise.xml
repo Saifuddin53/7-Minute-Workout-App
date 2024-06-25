@@ -72,6 +72,33 @@
         </LinearLayout>
     </FrameLayout>
 
+    <TextView
+        android:id="@+id/upcomingExercise"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/flProgressBar"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:text="UPCOMING EXERCISE: "
+        android:layout_margin="10dp"
+        android:textSize="22sp"
+        android:textStyle="normal"
+        />
+
+
+    <TextView
+        android:id="@+id/nextExerciseTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/upcomingExercise"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:text="Get Ready for"
+        android:textSize="22sp"
+        android:textStyle="bold"
+        />
+
+
     <ImageView
         android:id="@+id/ivImage"
         android:layout_width="match_parent"
