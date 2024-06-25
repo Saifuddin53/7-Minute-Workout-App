@@ -11,10 +11,15 @@ import com.myprojects.a7minuteworkoutapp.databinding.ActivityExcerciseBinding
 class ExerciseActivity : AppCompatActivity() {
 
     private var binding: ActivityExcerciseBinding? = null
+
     private var restTimer: CountDownTimer? = null
     private var restProgress = 0
+
     private var exerciseTimer: CountDownTimer? = null
     private var exerciseProgress = 0
+
+    private var exerciseList: ArrayList<ExerciseModel>? = null
+    private var currentExercisePosition = -1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,6 +30,8 @@ class ExerciseActivity : AppCompatActivity() {
         if(supportActionBar != null) {
             supportActionBar?.setDisplayHomeAsUpEnabled(true)
         }
+
+        exerciseList = Constants.defaultExerciseList()
 
         binding?.toolBarExercise?.setNavigationOnClickListener {
             onBackPressed()
@@ -53,9 +60,11 @@ class ExerciseActivity : AppCompatActivity() {
             }
 
             override fun onFinish() {
+                currentExercisePosition++
+                binding?.flProgressBar?.visibility = View.INVISIBLE
+                binding?.tvTitle?.visibility = View.INVISIBLE
                 setupExerciseView()
             }
-
         }.start()
     }
 
@@ -66,13 +75,17 @@ class ExerciseActivity : AppCompatActivity() {
             exerciseProgress = 0
         }
 
+        binding?.tvExercise?.visibility = View.VISIBLE
+        binding?.tvExercise?.text = exerciseList?.get(currentExercisePosition)?.getName()
         binding?.flExerciseProgressBar?.visibility = View.VISIBLE
+        binding?.ivImage?.visibility = View.VISIBLE
+        exerciseList?.get(currentExercisePosition)?.getImage()
+            ?.let { binding?.ivImage?.setImageResource(it) }
         setExerciseProgressBar()
     }
 
     private fun setExerciseProgressBar() {
         binding?.exerciseProgressBar?.progress = exerciseProgress
-        binding?.tvTitle?.text = "Exercise Name"
         exerciseTimer = object: CountDownTimer(30000, 1000) {
             override fun onTick(p0: Long) {
                 exerciseProgress++
@@ -81,13 +94,13 @@ class ExerciseActivity : AppCompatActivity() {
             }
 
             override fun onFinish() {
-                Toast.makeText(
-                    this@ExerciseActivity,
-                    "Timer finished",
-                    Toast.LENGTH_LONG
-                ).show()
+                binding?.ivImage?.visibility = View.INVISIBLE
+                binding?.tvExercise?.visibility = View.INVISIBLE
+                binding?.flExerciseProgressBar?.visibility = View.INVISIBLE
+                binding?.tvTitle?.visibility = View.VISIBLE
+                binding?.flProgressBar?.visibility = View.VISIBLE
+                setupRestView()
             }
-
         }.start()
     }
 
