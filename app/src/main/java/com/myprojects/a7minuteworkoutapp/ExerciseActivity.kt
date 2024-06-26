@@ -1,5 +1,6 @@
 package com.myprojects.a7minuteworkoutapp
 
+import android.content.Intent
 import android.media.MediaPlayer
 import android.net.Uri
 import android.os.Bundle
@@ -152,15 +153,16 @@ class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
                     exerciseStatusAdapter!!.notifyDataSetChanged()
                     setupRestView()
                 }else {
-                    Toast.makeText(
-                        this@ExerciseActivity,
-                        "Congratulations, You have completed teh 7 minute workout.",
-                        Toast.LENGTH_LONG
-                    ).show()
+                    nextScreen()
                 }
 
             }
         }.start()
+    }
+
+    private fun nextScreen() {
+        val intent = Intent(this, FinishActivity::class.java)
+        startActivity(intent)
     }
 
     private fun speakOut(text: String) {
