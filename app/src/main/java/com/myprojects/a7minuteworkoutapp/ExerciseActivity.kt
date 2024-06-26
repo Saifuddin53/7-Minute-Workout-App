@@ -9,6 +9,8 @@ import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView.LayoutManager
 import androidx.transition.Visibility
 import com.myprojects.a7minuteworkoutapp.databinding.ActivityExcerciseBinding
 import java.util.Locale
@@ -33,6 +35,8 @@ class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
 
     private var player: MediaPlayer? = null
 
+    private var exerciseStatusAdapter: ExerciseStatusAdapter? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityExcerciseBinding.inflate(layoutInflater)
@@ -51,8 +55,17 @@ class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
             onBackPressed()
         }
 
-        speakOut("Upcoming exercise " + exerciseList!![currentExercisePosition + 1].getName())
         setupRestView()
+
+        setUpExerciseStatusRecyclerView()
+    }
+
+    private fun setUpExerciseStatusRecyclerView() {
+        binding?.rvExerciseStatus?.layoutManager =
+            LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+
+        exerciseStatusAdapter = ExerciseStatusAdapter(exerciseList!!)
+        binding?.rvExerciseStatus?.adapter = exerciseStatusAdapter
     }
 
     private fun setupRestView() {
