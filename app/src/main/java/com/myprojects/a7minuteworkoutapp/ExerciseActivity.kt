@@ -1,5 +1,7 @@
 package com.myprojects.a7minuteworkoutapp
 
+import android.media.MediaPlayer
+import android.net.Uri
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.speech.tts.TextToSpeech
@@ -29,6 +31,8 @@ class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
 
     private var isTtsInitialized = false
 
+    private var player: MediaPlayer? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityExcerciseBinding.inflate(layoutInflater)
@@ -56,6 +60,11 @@ class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
             restTimer?.cancel()
             restProgress = 0
         }
+
+//Just check
+//        val uri = Uri.parse("android.resource://com.myprojects.a7minuteworkoutapp/" + R.raw.press_start)
+//        player = MediaPlayer.create(applicationContext, uri)
+//        player?.start()
 
         if (isTtsInitialized) {
             speakOut("Upcoming exercise " + exerciseList?.get(currentExercisePosition + 1)?.getName().toString())
@@ -148,6 +157,9 @@ class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
         if(tts != null) {
             tts?.stop()
             tts?.shutdown()
+        }
+        if(player != null) {
+            player?.stop()
         }
         binding = null
     }
