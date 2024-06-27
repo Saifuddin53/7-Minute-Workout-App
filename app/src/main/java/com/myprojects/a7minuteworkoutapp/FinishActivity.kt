@@ -1,5 +1,6 @@
 package com.myprojects.a7minuteworkoutapp
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -13,7 +14,23 @@ class FinishActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         binding = ActivityFinishBinding.inflate(layoutInflater)
 
+        setContentView(binding?.root)
+        setSupportActionBar(binding?.toolBarExercise)
+
+        if(supportActionBar != null) {
+            supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        }
+
+        binding?.toolBarExercise?.setNavigationOnClickListener {
+            onBackPressed()
+        }
+
+        binding?.finishButton?.setOnClickListener {
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
+        }
     }
 }
