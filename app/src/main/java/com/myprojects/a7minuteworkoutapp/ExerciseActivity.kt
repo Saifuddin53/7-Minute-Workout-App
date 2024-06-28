@@ -146,7 +146,7 @@ class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
 
     private fun setupExerciseView() {
         if(exerciseTimer != null)
-        {
+         {
             exerciseTimer?.cancel()
             exerciseProgress = 0
         }
